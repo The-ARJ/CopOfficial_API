@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema({
-    username: {
+    phoneNumber: {
         type: String,
-        // required: [true, 'Username is required'],
-        unique: [true, 'Username not available'],
+        required: [true, 'Phone Number is required'],
+        unique: [true, 'Phone number already exists'],
     },
     firstName: {
         type: String,

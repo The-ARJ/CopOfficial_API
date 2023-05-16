@@ -4,8 +4,14 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const router = express.Router();
-
-router.post("/register", (req, res, next) => {
+const upload = require("../middleware/upload");
+const {
+  verifyUser,
+  verifyManager,
+  verifyAdmin,
+} = require("../middleware/auth");
+const userController = require("../controllers/user-controller");
+router.post("/", upload.single("userImage"), (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (user != null) {
@@ -16,10 +22,11 @@ router.post("/register", (req, res, next) => {
         if (err) return next(err);
 
         const newUser = new User({
-          username : req.body.username,
-          firstName : req.body.firstName,
-          lastName : req.body.lastName,
           email: req.body.email,
+          phoneNumber: req.body.phoneNumber,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          // image: "/user_images/" + req.file.filename,
           password: hash,
           role: req.body.role || "user",
         });
@@ -30,18 +37,21 @@ router.post("/register", (req, res, next) => {
             const data = {
               id: user._id,
               email: user.email,
+              phoneNumber: user.phoneNumber,
+              firstName: user.firstName,
+              lastName: user.lastName,
               role: user.role,
+              image: user.image,
             };
             return res
               .status(201)
               .json({ status: "User registration success.", data });
           })
           .catch((err) => {
-            console.log(err)
+            console.log(err);
             return res
               .status(400)
-              .json({ error: "Error saving user in database" },
-              );
+              .json({ error: "Error saving user in database" });
           });
       });
     })
@@ -50,14 +60,19 @@ router.post("/register", (req, res, next) => {
     });
 });
 
-router.post("/login", (req, res, next) => {
-  User.findOne({ email: req.body.email })
+router.post("/login/user", (req, res, next) => {
+  const { email, phoneNumber, password } = req.body;
+
+  // Find user by email or phone number
+  User.findOne({
+    $or: [{ email: email }, { phoneNumber: phoneNumber }]
+  })
     .then((user) => {
       if (!user) {
         return res.status(401).json({ error: "Invalid credentials" });
       }
 
-      bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
+      bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) return next(err);
         if (!isMatch) {
           return res.status(401).json({ error: "Invalid credentials" });
@@ -68,7 +83,7 @@ router.post("/login", (req, res, next) => {
           email: user.email,
           role: user.role,
         };
-        const token = jwt.sign(data, process.env.SECRET, { expiresIn: "24h" });
+        const token = jwt.sign(data, process.env.SECRET, { expiresIn: "1y" });
         return res.json({ status: "Login Success", token });
       });
     })
@@ -76,5 +91,6 @@ router.post("/login", (req, res, next) => {
       return res.status(500).json({ error: "Server Error" });
     });
 });
+
 
 module.exports = router;
