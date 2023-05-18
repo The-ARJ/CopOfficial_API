@@ -17,7 +17,6 @@ const getAllContacts = (req, res, next) => {
 const createContact = (req, res, next) => {
     let contact = {
         ...req.body,
-        owner: req.user.id,
     };
     Contact.create(contact)
         .then((contact) => {

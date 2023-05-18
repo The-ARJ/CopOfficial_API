@@ -13,7 +13,6 @@ const contactchema = mongoose.Schema({
     email: {
         type: String,
         required: [true, 'Email is required'],
-        unique: [true, 'Email Already Exists'],
     },
     subject: {
         type: String,
