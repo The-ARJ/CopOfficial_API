@@ -92,11 +92,11 @@ const updateComplaintById = (req, res, next) => {
         .then((updatedComplaint) => {
           const data = {
             id: updatedComplaint._id,
-            name: updatedComplaint.name,
-            meal: updatedComplaint.meal,
-            recipe: updatedComplaint.recipe,
-            time: updatedComplaint.time,
-            ingredients: updatedComplaint.ingredients,
+            dat: updatedComplaint.dat,
+            location: updatedComplaint.location,
+            description: updatedComplaint.description,
+            offendername: updatedComplaint.offendername,
+            offenderdet: updatedComplaint.offenderdet,
             calories: updatedComplaint.calories,
             image: updatedComplaint.image,
           };

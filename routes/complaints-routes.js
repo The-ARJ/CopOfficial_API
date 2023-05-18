@@ -12,7 +12,7 @@ const {
 router
   .route("/")
   .get(verifyUser, complaintController.getAllComplaints)
-  .post(verifyAdmin, upload.single("complaintImage"), complaintController.createComplaint)
+  .post(verifyUser, upload.single("complaintImage"), complaintController.createComplaint)
   .put((req, res) => res.status(501).json({ msg: "Not implemented" }))
   .delete(verifyAdmin, verifyManager, complaintController.deleteAllComplaints);
 

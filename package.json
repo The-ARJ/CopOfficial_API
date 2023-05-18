@@ -2,7 +2,7 @@
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.1",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "date-fns": "^2.29.3",
     "dotenv": "^16.0.3",
@@ -33,7 +33,6 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --runInBand --verbose --coverage ",
     "start": "cross-env NODE_ENV=development nodemon index.js"
-
   },
   "repository": {
     "type": "git",
