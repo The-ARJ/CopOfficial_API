@@ -11,6 +11,9 @@ const storage = multer.diskStorage({
     else if (file.fieldname === 'notifyImage') {
       cb(null, './uploads/notification-images');
     }
+    else if (file.fieldname === 'userImage') {
+      cb(null, './uploads/user_images');
+    }
   },
   filename: (req, file, cb) => {
     let ext = path.extname(file.originalname);

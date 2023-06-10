@@ -11,6 +11,22 @@ const {
   verifyAdmin,
 } = require("../middleware/auth");
 const userController = require("../controllers/user-controller");
+router
+  .route("/")
+  .get(verifyUser, userController.getAllUsers)
+  .put((req, res) => res.status(501).json({ msg: "Not implemented" }))
+  .delete(userController.deleteAllUsers);
+
+router
+  .route("/:user_id")
+  .get(userController.getUserById)
+  .post((req, res) => res.status(501).json({ msg: "Not implemented" }))
+  .put(verifyUser, upload.single("userImage"), userController.updateUserById)
+  .delete(userController.deleteUserById);
+
+router.route("/current/user").get(verifyUser, userController.getCurrentUser);
+
+
 router.post("/", upload.single("userImage"), (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {

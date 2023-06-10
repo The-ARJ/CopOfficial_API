@@ -6,6 +6,9 @@ const userSchema = mongoose.Schema({
         required: [true, 'Phone Number is required'],
         unique: [true, 'Phone number already exists'],
     },
+    profession: {
+        type: String,
+    },
     firstName: {
         type: String,
         required: true
@@ -28,10 +31,13 @@ const userSchema = mongoose.Schema({
         enum: ['user', 'admin', 'manager'],
         default: 'user'
     },
-    profile: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Profile'
-    }
+    image: {
+        type: String
+    },
+    // profile: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Profile'
+    // }
 }, { timestamps: true })
 
 module.exports = mongoose.model('User', userSchema)

@@ -13,18 +13,24 @@ const getAllUsers = (req, res, next) => {
     });
 };
 const getCurrentUser = (req, res) => {
-  const { id } = req.user;
-  User.findById(id, (err, user) => {
-    if (err) {
-      return res.status(500).json({ message: "Internal server error" });
-    }
-    return res.status(200).json({
-      success: true,
-      message: "Current user retrieved successfully",
-      data: user,
+  const userId = req.user.id; // Assuming the user ID is available in req.user.id after authentication
+
+  User.findById(userId)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.status(200).json({
+        success: true,
+        message: "Current user retrieved successfully",
+        data: user,
+      });
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "Error retrieving current user", error });
     });
-  });
 };
+
 
 const deleteAllUsers = (req, res, next) => {
   User.deleteMany()
@@ -51,7 +57,7 @@ const getUserById = (req, res, next) => {
       res.status(500).json({ message: "Error retrieving user", error });
     });
 };
- 
+
 const updateUserById = (req, res, next) => {
   console.log(req.params);
   User.findById(req.params.user_id)
@@ -79,14 +85,18 @@ const updateUserById = (req, res, next) => {
       }
     })
     .catch((err) => {
-      return res.status(500).json({ error: "Server Error" });
+      return res.status(400).json({ error: "Error updating user", details: err.message });
     });
+
 };
+
 
 function updateUser(user, req, res) {
   user.email = req.body.email || user.email;
   user.firstName = req.body.firstName || user.firstName;
   user.lastName = req.body.lastName || user.lastName;
+  user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
+  user.profession = req.body.profession || user.profession;
   if (req.file) {
     user.image = "/user_images/" + req.file.filename;
   }
@@ -99,6 +109,8 @@ function updateUser(user, req, res) {
         email: updatedUser.email,
         firstName: updatedUser.firstName,
         lastName: updatedUser.lastName,
+        phoneNumber: updatedUser.phoneNumber,
+        profession: updatedUser.profession,
         role: updatedUser.role,
         image: updatedUser.image,
       };
