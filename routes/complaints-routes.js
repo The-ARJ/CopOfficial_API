@@ -22,7 +22,7 @@ router
   .get(complaintController.getComplaintById)
   .post((req, res) => res.status(501).json({ msg: "Not implemented" }))
   .put(verifyUser, upload.single("complaintImage"), complaintController.updateComplaintById)
-  .delete(verifyAdmin, complaintController.deleteComplaintById);
+  .delete(verifyUser, complaintController.deleteComplaintById);
 
 router
   .route("/:complaint_id/progress")

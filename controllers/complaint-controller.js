@@ -1,18 +1,33 @@
 const Complaint = require("../models/Complaint");
 
 const getAllComplaints = (req, res, next) => {
-  Complaint.find()
+  const userId = req.user.id; // Assuming you have the authenticated user's ID available in req.user.id
+  const userRole = req.user.role; // Assuming you have the user's role available in req.user.role
+
+  let query = {};
+
+  if (userRole !== 'admin') {
+    // Regular user can only retrieve their own complaints
+    query = { owner: userId };
+  }
+
+  Complaint.find(query)
     .then((complaints) => {
       res.status(200).json({
         success: true,
-        message: "All complaints retrieved successfully",
+        message: "Complaints retrieved successfully",
         data: complaints,
       });
     })
     .catch((error) => {
-      res.status(500).json({ message: "Error retrieving complaints", error });
+      res.status(500).json({
+        success: false,
+        message: "Error retrieving complaints",
+        error,
+      });
     });
 };
+
 
 const createComplaint = (req, res, next) => {
   let complaint = {

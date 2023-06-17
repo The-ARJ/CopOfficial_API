@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const progressSchema = mongoose.Schema({
     status: {
         type: String,
-        required: true
+        required: true,
+        default: 'pending'
     },
     comment: {
         type: String,
@@ -16,7 +17,8 @@ const progressSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }
-})
+});
+
 const complaintSchema = mongoose.Schema({
     dat: {
         type: String,
@@ -39,7 +41,10 @@ const complaintSchema = mongoose.Schema({
     image: {
         type: String
     },
-    progress: [progressSchema],
+    progress: {
+        type: [progressSchema],
+        default: [{}] // Set an empty object as the default value for progress array
+    },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
