@@ -7,6 +7,8 @@ const storage = multer.diskStorage({
       cb(null, './uploads/user-profiles');
     } else if (file.fieldname === 'complaintImage') {
       cb(null, './uploads/complaint-images');
+    } else if (file.fieldname === 'crimeReportImage') {
+      cb(null, './uploads/crime_report_images');
     }
     else if (file.fieldname === 'notifyImage') {
       cb(null, './uploads/notification-images');

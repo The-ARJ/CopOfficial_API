@@ -1,14 +1,10 @@
-// complaintSchema.js
+// crimeReportSchema.js
 const mongoose = require('mongoose');
 const progressSchema = require('./progressSchema');
 const caseSchema = require('./caseSchema');
 
-const complaintSchema = mongoose.Schema({
+const crimeReportSchema = mongoose.Schema({
     dat: {
-        type: String,
-        required: true
-    },
-    location: {
         type: String,
         required: true
     },
@@ -16,10 +12,14 @@ const complaintSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    offendername: {
+    crimetype: {
         type: String,
     },
-    offenderdet: {
+    location: {
+        type: String,
+        required: true
+    },
+    addnote: {
         type: String,
     },
     image: {
@@ -35,8 +35,8 @@ const complaintSchema = mongoose.Schema({
     },
     case: {
         type: [caseSchema],
-        default: [{ casetype: 'complaint' }],
+        default: [{ casetype: 'crimereport' }],
     }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Complaint', complaintSchema);
+module.exports = mongoose.model('CrimeReport', crimeReportSchema);
