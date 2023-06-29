@@ -4,7 +4,7 @@ const contactController = require("../controllers/contact-controller");
 const upload = require("../middleware/upload");
 
 const {
-    verifyManager,
+    verifyPolice,
     verifyAdmin,
 } = require("../middleware/auth");
 
@@ -13,7 +13,7 @@ router
     .get(verifyAdmin, contactController.getAllContacts)
     .post( upload.single("contactImage"),contactController.createContact)
     .put((req, res) => res.status(501).json({ msg: "Not implemented" }))
-    .delete(verifyAdmin, verifyManager, contactController.deleteAllContacts);
+    .delete(verifyAdmin, verifyPolice, contactController.deleteAllContacts);
 
 
 module.exports = router;

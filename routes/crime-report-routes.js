@@ -4,7 +4,7 @@ const crimeReportController = require("../controllers/crime-report-controller");
 const upload = require("../middleware/upload");
 const {
     verifyUser,
-    verifyManager,
+    verifyPolice,
     verifyAdmin,
 } = require("../middleware/auth");
 
@@ -13,7 +13,7 @@ router
     .get(verifyUser, crimeReportController.getAllCrimeReports)
     .post(verifyUser, upload.single("crimeReportImage"), crimeReportController.createCrimeReport)
     .put((req, res) => res.status(501).json({ msg: "Not implemented" }))
-    .delete(verifyAdmin, verifyManager, crimeReportController.deleteAllCrimeReports);
+    .delete(verifyAdmin, verifyPolice, crimeReportController.deleteAllCrimeReports);
 
 router
     .route("/:crimeReport_id")

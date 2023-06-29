@@ -7,7 +7,7 @@ const router = express.Router();
 const upload = require("../middleware/upload");
 const {
   verifyUser,
-  verifyManager,
+  verifyPolice,
   verifyAdmin,
 } = require("../middleware/auth");
 const userController = require("../controllers/user-controller");

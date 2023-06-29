@@ -1,4 +1,4 @@
-const CrimeReport = require("../models/CrimeReport");
+const CrimeReport = require("../models/crimeReport");
 
 const getAllCrimeReports = (req, res, next) => {
     const userId = req.user.id; // Assuming you have the authenticated user's ID available in req.user.id

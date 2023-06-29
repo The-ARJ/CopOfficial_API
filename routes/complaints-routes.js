@@ -5,7 +5,7 @@ const progressController = require("../controllers/complaint-progress-controller
 const upload = require("../middleware/upload");
 const {
   verifyUser,
-  verifyManager,
+  verifyPolice,
   verifyAdmin,
 } = require("../middleware/auth");
 
@@ -14,7 +14,7 @@ router
   .get(verifyUser, complaintController.getAllComplaints)
   .post(verifyUser, upload.single("complaintImage"), complaintController.createComplaint)
   .put((req, res) => res.status(501).json({ msg: "Not implemented" }))
-  .delete(verifyAdmin, verifyManager, complaintController.deleteAllComplaints);
+  .delete(verifyAdmin, verifyPolice, complaintController.deleteAllComplaints);
 
 
 router

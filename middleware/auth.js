@@ -23,8 +23,8 @@ const verifyAdmin = (req, res, next) => {
     next()
 }
 
-const verifyManager = (req, res, next) => {
-    if (req.user.role == 'manager' || req.user.role == 'admin') return next()
+const verifyPolice = (req, res, next) => {
+    if (req.user.role == 'police' || req.user.role == 'admin') return next()
     else {
         res.status(403)
         return next(new Error('Not authorized'))
@@ -32,4 +32,4 @@ const verifyManager = (req, res, next) => {
 }
 
 
-module.exports = { verifyUser, verifyAdmin, verifyManager }
+module.exports = { verifyUser, verifyAdmin, verifyPolice }
