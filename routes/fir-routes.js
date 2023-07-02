@@ -19,7 +19,7 @@ router
     .route("/:fir_id")
     .get(firController.getFIRById)
     .post((req, res) => res.status(501).json({ msg: "Not implemented" }))
-    .put(verifyUser, upload.fields([{ name: "firImage", maxCount: 1 }, { name: "firVideo", maxCount: 1 }]), firController.updateFIRById)
-    .delete(verifyUser, firController.deleteFIRById);
+    .put(verifyAdmin, upload.fields([{ name: "firImage", maxCount: 1 }, { name: "firVideo", maxCount: 1 }]), firController.updateFIRById)
+    .delete(verifyAdmin, firController.deleteFIRById);
 
 module.exports = router;

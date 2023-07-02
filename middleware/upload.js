@@ -8,13 +8,15 @@ const storage = multer.diskStorage({
     } else if (file.fieldname === 'firVideo') {
       cb(null, './uploads/fir-videos');
     } else if (file.fieldname === 'profile') {
-      cb(null, './uploads/user-profiles');
+      cb(null, './uploads/user_profiles');
     } else if (file.fieldname === 'complaintImage') {
-      cb(null, './uploads/complaint-images');
+      cb(null, './uploads/complaint_images');
     } else if (file.fieldname === 'crimeReportImage') {
-      cb(null, './uploads/crime-report-images');
+      cb(null, './uploads/crime_report_images');
     } else if (file.fieldname === 'notifyImage') {
       cb(null, './uploads/notification-images');
+    } else if (file.fieldname === 'criminalImage') {
+      cb(null, './uploads/criminal-images');
     } else if (file.fieldname === 'userImage') {
       cb(null, './uploads/user-images');
     } else {
@@ -44,7 +46,7 @@ const videoFileFilter = (req, file, cb) => {
 const upload = multer({
   storage,
   fileFilter: function (req, file, cb) {
-    if (file.fieldname === 'firImage' || file.fieldname === 'profile' || file.fieldname === 'complaintImage' || file.fieldname === 'crimeReportImage' || file.fieldname === 'notifyImage' || file.fieldname === 'userImage') {
+    if (file.fieldname === 'firImage' || file.fieldname === 'profile' || file.fieldname === 'complaintImage' || file.fieldname === 'crimeReportImage' || file.fieldname === 'notifyImage' || file.fieldname === 'userImage' || file.fieldname === 'criminalImage') {
       imageFileFilter(req, file, cb);
     } else if (file.fieldname === 'firVideo') {
       videoFileFilter(req, file, cb);

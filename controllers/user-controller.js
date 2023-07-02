@@ -13,7 +13,7 @@ const getAllUsers = (req, res, next) => {
     });
 };
 const getCurrentUser = (req, res) => {
-  const userId = req.user.id; // Assuming the user ID is available in req.user.id after authentication
+  const userId = req.user.id; 
 
   User.findById(userId)
     .then((user) => {

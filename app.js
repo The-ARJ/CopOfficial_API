@@ -8,6 +8,7 @@ const profilesRouter = require("./routes/profile-routes");
 const complaintsRouter = require("./routes/complaints-routes");
 const crimeReportRouter = require("./routes/crime-report-routes");
 const firRouter = require("./routes/fir-routes");
+const criminalRouter = require("./routes/criminal-routes");
 const contactRouter = require("./routes/contact-routes");
 const bodyParser = require("body-parser");
 
@@ -52,6 +53,7 @@ app.use("/profiles", auth.verifyUser, profilesRouter);
 app.use("/complaints", complaintsRouter);
 app.use("/crime-report", crimeReportRouter);
 app.use("/fir", firRouter);
+app.use("/criminals", criminalRouter);
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 app.use((err, req, res, next) => {

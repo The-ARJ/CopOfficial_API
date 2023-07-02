@@ -13,13 +13,13 @@ router
     .get(verifyUser, crimeReportController.getAllCrimeReports)
     .post(verifyUser, upload.single("crimeReportImage"), crimeReportController.createCrimeReport)
     .put((req, res) => res.status(501).json({ msg: "Not implemented" }))
-    .delete(verifyAdmin, verifyPolice, crimeReportController.deleteAllCrimeReports);
+    .delete(verifyPolice, verifyPolice, crimeReportController.deleteAllCrimeReports);
 
 router
     .route("/:crimeReport_id")
     .get(crimeReportController.getCrimeReportById)
     .post((req, res) => res.status(501).json({ msg: "Not implemented" }))
-    .put(verifyUser, upload.single("crimeReportImage"), crimeReportController.updateCrimeReportById)
-    .delete(verifyUser, crimeReportController.deleteCrimeReportById);
+    .put(verifyAdmin, upload.single("crimeReportImage"), crimeReportController.updateCrimeReportById)
+    .delete(verifyAdmin, crimeReportController.deleteCrimeReportById);
 
 module.exports = router;

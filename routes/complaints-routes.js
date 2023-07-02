@@ -14,15 +14,15 @@ router
   .get(verifyUser, complaintController.getAllComplaints)
   .post(verifyUser, upload.single("complaintImage"), complaintController.createComplaint)
   .put((req, res) => res.status(501).json({ msg: "Not implemented" }))
-  .delete(verifyAdmin, verifyPolice, complaintController.deleteAllComplaints);
+  .delete(verifyAdmin, complaintController.deleteAllComplaints);
 
 
 router
   .route("/:complaint_id")
   .get(complaintController.getComplaintById)
   .post((req, res) => res.status(501).json({ msg: "Not implemented" }))
-  .put(verifyUser, upload.single("complaintImage"), complaintController.updateComplaintById)
-  .delete(verifyUser, complaintController.deleteComplaintById);
+  .put(verifyAdmin, upload.single("complaintImage"), complaintController.updateComplaintById)
+  .delete(verifyAdmin, complaintController.deleteComplaintById);
 
 router
   .route("/:complaint_id/progress")
